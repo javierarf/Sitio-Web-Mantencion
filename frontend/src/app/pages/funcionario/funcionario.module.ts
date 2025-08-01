@@ -1,17 +1,19 @@
+// src/app/pages/funcionario/funcionario.module.ts
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FuncionarioRoutingModule } from './funcionario-routing.module';
-import { FormsModule } from '@angular/forms';
+import { RouterModule, Routes } from '@angular/router';
 
-// Aquí agregarás los componentes de funcionario
-import { FuncionarioHomeComponent } from './funcionario-home/funcionario-home.component';
+const routes: Routes = [
+  {
+    path: '',
+    loadComponent: () =>
+      import('./funcionario-home/funcionario-home.component').then(
+        (m) => m.FuncionarioHomeComponent
+      ),
+  },
+];
 
 @NgModule({
-  declarations: [FuncionarioHomeComponent],
-  imports: [
-    CommonModule,
-    FuncionarioRoutingModule,
-    FormsModule
-  ]
+  imports: [RouterModule.forChild(routes)],
+  exports: [RouterModule],
 })
-export class FuncionarioModule { }
+export class FuncionarioModule {}

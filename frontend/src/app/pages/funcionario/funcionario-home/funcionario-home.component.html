@@ -1,2 +1,67 @@
-<h2>Bienvenido, Funcionario</h2>
-<p>Aquí irán tus solicitudes y formularios.</p>
+<!-- funcionario-form.component.html -->
+
+<div class="container mt-5" style="max-width: 600px;">
+  <h2 class="mb-4 text-center">Formulario de Solicitud</h2>
+
+  <form (ngSubmit)="enviarFormulario()" #formulario="ngForm">
+
+    <!-- Asunto -->
+    <div class="form-group mb-3">
+      <label for="asunto" class="form-label">Asunto</label>
+      <input
+        type="text"
+        id="asunto"
+        name="asunto"
+        class="form-control"
+        required
+        [(ngModel)]="formularioDatos.asunto"
+        placeholder="Ingresa el asunto"
+      />
+    </div>
+
+    <!-- Descripción -->
+    <div class="form-group mb-3">
+      <label for="descripcion" class="form-label">Descripción</label>
+      <textarea
+        id="descripcion"
+        name="descripcion"
+        class="form-control"
+        rows="4"
+        required
+        [(ngModel)]="formularioDatos.descripcion"
+        placeholder="Describe el problema o solicitud"
+      ></textarea>
+    </div>
+
+    <!-- Subir imágenes (opcional) -->
+    <div class="form-group mb-4">
+      <label for="imagenes" class="form-label">Imágenes (opcional)</label>
+      <input
+        type="file"
+        id="imagenes"
+        name="imagenes"
+        class="form-control"
+        (change)="onImagenesSeleccionadas($event)"
+        multiple
+        accept="image/*"
+      />
+    </div>
+
+    <!-- Previsualización de imágenes -->
+    <div class="mb-4" *ngIf="imagenesPreview.length > 0">
+      <p class="mb-2">Imágenes seleccionadas:</p>
+      <div class="d-flex flex-wrap gap-2">
+        <img
+          *ngFor="let img of imagenesPreview"
+          [src]="img"
+          alt="Vista previa"
+          style="width: 100px; height: auto; border: 1px solid #ccc; padding: 2px;"
+        />
+      </div>
+    </div>
+
+    <!-- Botón enviar -->
+    <button type="submit" class="btn btn-primary w-100">Enviar</button>
+
+  </form>
+</div>

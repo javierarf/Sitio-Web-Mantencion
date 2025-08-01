@@ -60,8 +60,15 @@ export class LoginComponent {
     private authService: AuthService,
     private router: Router
   ) {}
-
   login() {
+  // ⚠️ Solo para pruebas
+  localStorage.setItem('token', 'FAKE_TOKEN');
+  localStorage.setItem('rol', 'funcionario'); // o 'admin', según lo que necesités
+
+  this.router.navigate(['/funcionario']); // o la ruta que querás
+}
+
+  /*login() {
     this.authService.login(this.username, this.password).subscribe({
       next: () => {
         // Redirigir al home o dashboard
@@ -71,5 +78,5 @@ export class LoginComponent {
         alert('Credenciales incorrectas');
       }
     });
-  }
+  }*/
 }
