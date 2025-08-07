@@ -1,14 +1,19 @@
+// src/app/pages/mantencion/mantencion.module.ts
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { RouterModule, Routes } from '@angular/router';
 
-import { MantencionRoutingModule } from './mantencion-routing.module';
-
+const routes: Routes = [
+  {
+    path: '',
+    loadComponent: () =>
+      import('./mantencion-home/mantencion-home.component').then(
+        (m) => m.MantencionHomeComponent
+      ),
+  },
+];
 
 @NgModule({
-  declarations: [],
-  imports: [
-    CommonModule,
-    MantencionRoutingModule
-  ]
+  imports: [RouterModule.forChild(routes)],
+  exports: [RouterModule],
 })
-export class MantencionModule { }
+export class MantencionModule {}

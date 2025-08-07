@@ -1,0 +1,64 @@
+.funcionario-container {
+  max-width: 700px;
+  margin: 20px auto;
+  padding: 16px;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+h2 {
+  text-align: center;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.solicitud-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.form-control {
+  padding: 10px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+}
+
+.preview-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.preview-container img {
+  width: 100px;
+  height: auto;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.btn-crear {
+  background-color: #bddc89;
+  color: #fff;
+  border: none;
+  padding: 10px;
+  font-weight: bold;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.btn-crear:hover {
+  background-color: #a7c870;
+}
+
+.mis-solicitudes {
+  margin-top: 30px;
+  color: #333;
+}
+
+.lista-solicitudes li {
+  padding: 8px;
+  border-bottom: 1px solid #ddd;
+}

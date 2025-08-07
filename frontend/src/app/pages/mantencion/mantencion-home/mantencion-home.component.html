@@ -1,0 +1,39 @@
+<app-navbar></app-navbar>
+
+<div class="container">
+  <div class="card">
+    <h2>Área de mantención: Tareas asignadas</h2>
+
+    <div *ngIf="tareas.length === 0" class="info-text">
+      No hay tareas cargadas o se están cargando...
+    </div>
+
+    <ul class="tarea-list">
+      <li *ngFor="let s of tareas" class="tarea-item">
+        <div class="tarea-main">
+          <div>
+            <strong>{{ s.resumen }}</strong> — {{ s.descripcion }}
+          </div>
+          <div class="small-text">
+            Prioridad:
+            <span
+              class="badge"
+              [ngClass]="{
+                'badge-alta': s.prioridad === 'alta',
+                'badge-media': s.prioridad === 'media',
+                'badge-baja': s.prioridad === 'baja'
+              }"
+              >{{ s.prioridad }}</span
+            >
+          </div>
+        </div>
+        <div class="tarea-actions">
+          <label class="checkbox-label">
+            <input type="checkbox" [checked]="s.completada" (change)="toggle(s)" />
+            Completada
+          </label>
+        </div>
+      </li>
+    </ul>
+  </div>
+</div>

@@ -1,4 +1,121 @@
-/* You can add global styles to this file, and also import other style files */
+:root {
+  --brand-green: #bddc89;
+  --bg: #ffffff;
+  --radius: 12px;
+  --shadow: 0 8px 24px rgba(0,0,0,0.04);
+  --text: #1f2d3a;
+}
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+/* Reset muy ligero */
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  font-family: system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100%;
+}
+
+/* Cards */
+.card {
+  background: #fff;
+  border-radius: var(--radius);
+  padding: 1rem;
+  box-shadow: var(--shadow);
+  margin-bottom: 1rem;
+}
+
+/* Botones primarios */
+.button-primary {
+  background: var(--brand-green);
+  color: #1f2d3a;
+  border: none;
+  padding: 0.65rem 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: filter .15s ease;
+}
+.button-primary:hover {
+  filter: brightness(1.05);
+}
+
+/* Inputs */
+input, textarea, select {
+  width: 100%;
+  padding: 0.65rem 0.75rem;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  font-size: 1rem;
+  background: #f9f9f9;
+  resize: vertical;
+}
+
+/* Navbar */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem 1rem;
+  background: #fff;
+  border-bottom: 1px solid #f0f0f0;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+.navbar .brand {
+  font-weight: 700;
+  font-size: 1.25rem;
+}
+.navbar button {
+  background: transparent;
+  border: 1px solid var(--brand-green);
+  padding: 0.5rem 0.85rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  color: var(--brand-green);
+}
+.navbar button:hover {
+  background: var(--brand-green);
+  color: #fff;
+}
+
+/* Formularios y contenedores centrados */
+.container {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+/* Alertas simples */
+.alert {
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+}
+.alert-error {
+  background: #ffe3e3;
+  color: #a94442;
+}
+.alert-success {
+  background: #e6f9e6;
+  color: #2f7d32;
+}
+
+/* Tag de prioridad */
+.badge {
+  display: inline-block;
+  padding: 0.25rem 0.6rem;
+  border-radius: 999px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+.badge-alta { background: #f87171; color: #fff; }
+.badge-media { background: #facc15; color: #1f2d3a; }
+.badge-baja { background: #94d3a2; color: #1f2d3a; }
+
+/* Responsividad mínima */
+@media (max-width: 900px) {
+  .flex { flex-direction: column; }
+}

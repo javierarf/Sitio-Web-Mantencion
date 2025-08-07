@@ -9,12 +9,15 @@ import { CommonModule } from '@angular/common';
   standalone: true,
   imports: [CommonModule],
   template: `
-    <nav style="display:flex; justify-content: space-between; padding:8px; border-bottom:1px solid #ccc;">
-      <div><strong>Gestión</strong></div>
-      <div>
+    <div class="navbar">
+      <div class="brand">Gestión Mantención</div>
+      <div style="display:flex; gap:12px; align-items:center;">
+        <button *ngIf="auth.isAuthenticated()" (click)="navigate('funcionario')">Funcionario</button>
+        <button *ngIf="auth.isAuthenticated()" (click)="navigate('admin')">Admin</button>
+        <button *ngIf="auth.isAuthenticated()" (click)="navigate('mantencion')">Mantención</button>
         <button *ngIf="auth.isAuthenticated()" (click)="logout()">Cerrar sesión</button>
       </div>
-    </nav>
+    </div>
   `
 })
 export class NavbarComponent {
@@ -23,5 +26,9 @@ export class NavbarComponent {
   logout() {
     this.auth.logout();
     this.router.navigate(['/login']);
+  }
+
+  navigate(path: string) {
+    this.router.navigate([path]);
   }
 }

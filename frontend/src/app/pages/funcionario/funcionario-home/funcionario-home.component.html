@@ -1,67 +1,46 @@
-<!-- funcionario-form.component.html -->
+<app-navbar></app-navbar>
 
-<div class="container mt-5" style="max-width: 600px;">
-  <h2 class="mb-4 text-center">Formulario de Solicitud</h2>
+<div class="funcionario-container">
+  <h2>Crear nueva solicitud</h2>
 
-  <form (ngSubmit)="enviarFormulario()" #formulario="ngForm">
+  <form (ngSubmit)="crear()" class="solicitud-form">
+    <input
+      [(ngModel)]="resumen"
+      name="resumen"
+      placeholder="Asunto"
+      required
+      class="form-control"
+    />
 
-    <!-- Asunto -->
-    <div class="form-group mb-3">
-      <label for="asunto" class="form-label">Asunto</label>
-      <input
-        type="text"
-        id="asunto"
-        name="asunto"
-        class="form-control"
-        required
-        [(ngModel)]="formularioDatos.asunto"
-        placeholder="Ingresa el asunto"
-      />
+    <textarea
+      [(ngModel)]="descripcion"
+      name="descripcion"
+      placeholder="Descripción"
+      required
+      rows="4"
+      class="form-control"
+    ></textarea>
+
+    <input
+      type="file"
+      (change)="onImagenesSeleccionadas($event)"
+      multiple
+      accept="image/*"
+      class="form-control"
+    />
+
+    <div *ngIf="imagenesPreview.length > 0" class="preview-container">
+      <img *ngFor="let img of imagenesPreview" [src]="img" alt="Vista previa" />
     </div>
 
-    <!-- Descripción -->
-    <div class="form-group mb-3">
-      <label for="descripcion" class="form-label">Descripción</label>
-      <textarea
-        id="descripcion"
-        name="descripcion"
-        class="form-control"
-        rows="4"
-        required
-        [(ngModel)]="formularioDatos.descripcion"
-        placeholder="Describe el problema o solicitud"
-      ></textarea>
-    </div>
-
-    <!-- Subir imágenes (opcional) -->
-    <div class="form-group mb-4">
-      <label for="imagenes" class="form-label">Imágenes (opcional)</label>
-      <input
-        type="file"
-        id="imagenes"
-        name="imagenes"
-        class="form-control"
-        (change)="onImagenesSeleccionadas($event)"
-        multiple
-        accept="image/*"
-      />
-    </div>
-
-    <!-- Previsualización de imágenes -->
-    <div class="mb-4" *ngIf="imagenesPreview.length > 0">
-      <p class="mb-2">Imágenes seleccionadas:</p>
-      <div class="d-flex flex-wrap gap-2">
-        <img
-          *ngFor="let img of imagenesPreview"
-          [src]="img"
-          alt="Vista previa"
-          style="width: 100px; height: auto; border: 1px solid #ccc; padding: 2px;"
-        />
-      </div>
-    </div>
-
-    <!-- Botón enviar -->
-    <button type="submit" class="btn btn-primary w-100">Enviar</button>
-
+    <button type="submit" class="btn-crear">Crear solicitud</button>
   </form>
+
+  <h3 class="mis-solicitudes">Mis solicitudes</h3>
+  <ul class="lista-solicitudes">
+    <li *ngFor="let s of solicitudes">
+      <strong>{{ s.resumen }}</strong> — {{ s.descripcion }} — 
+      Completada: {{ s.completada ? 'Sí' : 'No' }}
+    </li>
+  </ul>
 </div>

@@ -1,0 +1,36 @@
+<app-navbar></app-navbar>
+
+<div class="dashboard-container">
+  <h2>Resumen de Solicitudes</h2>
+
+  <div class="stats-grid">
+    <div class="stat-card">
+      <h3>Total</h3>
+      <p>{{ total }}</p>
+    </div>
+    <div class="stat-card">
+      <h3>Pendientes</h3>
+      <p>{{ pendientes }}</p>
+    </div>
+    <div class="stat-card">
+      <h3>Completadas</h3>
+      <p>{{ completadas }}</p>
+    </div>
+    <div class="stat-card">
+      <h3>Alta</h3>
+      <p>{{ alta }}</p>
+    </div>
+    <div class="stat-card">
+      <h3>Media</h3>
+      <p>{{ media }}</p>
+    </div>
+    <div class="stat-card">
+      <h3>Baja</h3>
+      <p>{{ baja }}</p>
+    </div>
+  </div>
+
+  <div class="actions">
+    <button (click)="logout()">Cerrar sesión</button>
+  </div>
+</div>

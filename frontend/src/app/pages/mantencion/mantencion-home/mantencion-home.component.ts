@@ -8,17 +8,8 @@ import { NavbarComponent } from '../../../shared/navbar.component';
   selector: 'app-mantencion-home',
   standalone: true,
   imports: [CommonModule, NavbarComponent],
-  template: `
-    <app-navbar></app-navbar>
-    <h2>Área de mantención: Tareas asignadas</h2>
-    <ul>
-      <li *ngFor="let s of tareas">
-        <strong>{{ s.resumen }}</strong> — Prioridad: {{ s.prioridad }} —
-        Completada:
-        <input type="checkbox" [checked]="s.completada" (change)="toggle(s)" />
-      </li>
-    </ul>
-  `
+  templateUrl: './mantencion-home.component.html',
+  styleUrls: ['./mantencion-home.component.css'],
 })
 export class MantencionHomeComponent implements OnInit {
   tareas: Solicitud[] = [];
@@ -32,7 +23,7 @@ export class MantencionHomeComponent implements OnInit {
   cargar() {
     this.solicitudSvc.listar().subscribe({
       next: (data) => {
-        // Aquí podrías filtrar por asignada a este usuario si el backend lo sugiere
+        // Podrías filtrar por asignada_a si tenés el usuario actual
         this.tareas = data;
       },
       error: (e) => console.error('Error cargar tareas', e),
@@ -40,8 +31,9 @@ export class MantencionHomeComponent implements OnInit {
   }
 
   toggle(s: Solicitud) {
+    if (!s.id) return;
     this.solicitudSvc
-      .actualizar(s.id!, { completada: !s.completada })
+      .actualizar(s.id, { completada: !s.completada })
       .subscribe({
         next: () => this.cargar(),
         error: (e) => console.error('Error actualizar', e),

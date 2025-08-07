@@ -1,0 +1,43 @@
+<app-navbar></app-navbar>
+
+<div class="admin-container">
+  <h2>Panel de administrador</h2>
+
+  <div *ngIf="solicitudes.length === 0" class="loading">
+    Cargando solicitudes...
+  </div>
+
+  <div *ngFor="let s of solicitudes" class="card">
+    <div class="card-info">
+      <strong>{{ s.resumen }}</strong> — {{ s.descripcion }}
+      <div>Creada: {{ s.fecha_creacion | date:'short' }}</div>
+    </div>
+    <div class="card-actions">
+      <div>
+        Prioridad:
+        <select [(ngModel)]="s.prioridad" (change)="cambiarPrioridad(s)">
+          <option value="alta">Alta</option>
+          <option value="media">Media</option>
+          <option value="baja">Baja</option>
+        </select>
+      </div>
+
+      <div>
+        Asignada a:
+        <select [(ngModel)]="s.asignada_a" (change)="asignar(s)">
+          <option [ngValue]="null">— sin asignar —</option>
+          <option *ngFor="let u of usuarios" [value]="u.id">
+            {{ u.username }}
+          </option>
+        </select>
+      </div>
+
+      <div>
+        <label>
+          <input type="checkbox" [checked]="s.completada" (change)="toggleCompleta(s)" />
+          Completada
+        </label>
+      </div>
+    </div>
+  </div>
+</div>
