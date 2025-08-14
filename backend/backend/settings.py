@@ -12,6 +12,7 @@ ALLOWED_HOSTS = []
 
 # Aplicaciones instaladas
 INSTALLED_APPS = [
+    'corsheaders',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -27,6 +28,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -35,6 +37,14 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+# Permitir solo tu frontend de Angular (ajusta el puerto si es necesario)
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:4200",
+]
+
+# Si necesitas enviar cookies/tokens (opcional)
+CORS_ALLOW_CREDENTIALS = True
 
 ROOT_URLCONF = 'backend.urls'
 
@@ -89,7 +99,8 @@ SIMPLE_JWT = {
 DJOSER = {
     'LOGIN_FIELD': 'username',
     'USER_CREATE_PASSWORD_RETYPE': True,
-    'SERIALIZERS': {},
+    'SERIALIZERS': {
+         'token': 'api.serializers.CustomTokenObtainPairSerializer',},
     'TOKEN_MODEL': None,
 }
 

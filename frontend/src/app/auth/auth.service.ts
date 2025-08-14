@@ -19,15 +19,19 @@ export class AuthService {
   }
 
   login(username: string, password: string) {
-    return this.http
-      .post<{ access: string }>(this.apiUrl, { username, password })
-      .pipe(
-        tap((res) => {
-          localStorage.setItem(this.tokenKey, res.access);
-          this.isLoggedIn.next(true);
-        })
-      );
-  }
+  return this.http
+    .post<{ access: string }>(
+      this.apiUrl,
+      { username, password },
+      { headers: { 'Content-Type': 'application/json' } }
+    )
+    .pipe(
+      tap((res) => {
+        localStorage.setItem(this.tokenKey, res.access);
+        this.isLoggedIn.next(true);
+      })
+    );
+}
 
   logout() {
     localStorage.removeItem(this.tokenKey);
