@@ -20,5 +20,25 @@ export class AuthGuard implements CanActivate {
       this.router.navigate(['/login']);
       return false;
     }
+    const expectedRole = route.data['expectedRole'];
+    if (expectedRole) {
+      const userRole = this.auth.getCurrentUserRole();
+      if (userRole !== expectedRole) {
+        // Redirigir al módulo correspondiente de su rol
+        this.redirectToRoleModule(userRole);
+        return false;
+      }
+    }
+
+    return true;
+  }
+
+  private redirectToRoleModule(role: string | null) {
+    switch (role) {
+      case 'admin': this.router.navigate(['/admin']); break;
+      case 'mantencion': this.router.navigate(['/mantencion']); break;
+      case 'funcionario': this.router.navigate(['/funcionario']); break;
+      default: this.router.navigate(['/dashboard']); break;
+    }
   }
 }

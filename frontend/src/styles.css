@@ -119,3 +119,38 @@ input, textarea, select {
 @media (max-width: 900px) {
   .flex { flex-direction: column; }
 }
+
+/* Aplicar al elemento raíz y body */
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  display: grid;
+  place-items: center;
+  min-height: 100vh;
+  background-color: #f5f5f5;
+  font-family: 'Roboto', sans-serif;
+}
+/* Cambiar color de botones primary */
+.mat-mdc-raised-button.mat-primary {
+  background-color: #3db054 !important; /* Verde Sna Educa */
+  color: white !important;
+}
+
+/* Efecto hover */
+.mat-mdc-raised-button.mat-primary:hover {
+  background-color: #2d8c3f !important; /* Verde más oscuro */
+}
+
+/* Botón deshabilitado */
+.mat-mdc-raised-button.mat-primary:disabled {
+  background-color: var(--sna-green) !important;
+  color: #666666 !important;
+}
+app-root {
+    display: block;
+    height: 100%;
+}

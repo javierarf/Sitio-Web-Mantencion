@@ -1,29 +1,43 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { AuthGuard } from '../guards/auth.guard';
+
 
 const routes: Routes = [
-  // Dashboard en la raíz de "pages"
-  { path: '', component: DashboardComponent },
+  { path: '', redirectTo: '/login', pathMatch: 'full' },
 
   // Módulos por rol (lazy)
   {
     path: 'admin',
     loadChildren: () =>
       import('./admin/admin.module').then((m) => m.AdminModule),
+    canActivate: [AuthGuard],
+    data: { expectedRole: 'admin'}
   },
   {
     path: 'funcionario',
     loadChildren: () =>
       import('./funcionario/funcionario.module').then((m) => m.FuncionarioModule),
+    canActivate: [AuthGuard],
+    data: { expectedRole: 'funcionario'}
   },
   {
     path: 'mantencion',
     loadChildren: () =>
       import('./mantencion/mantencion.module').then((m) => m.MantencionModule),
+    canActivate: [AuthGuard],
+    data: { expectedRole: 'mantencion'}
   },
 
-  // Fallback dentro de pages: si no coincide, redirige a dashboard
+  // Dashboard general (también protegido)
+  { 
+    path: 'dashboard', 
+    component: DashboardComponent,
+    canActivate: [AuthGuard]
+  },
+
+  // Fallback
   { path: '**', redirectTo: '', pathMatch: 'full' },
 ];
 

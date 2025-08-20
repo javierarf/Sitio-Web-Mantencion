@@ -1,19 +1,15 @@
-// src/app/pages/admin/admin.module.ts
+// pages/admin/admin.module.ts
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { CommonModule } from '@angular/common';
 
-const routes: Routes = [
-  {
-    path: '',
-    loadComponent: () =>
-      import('./admin-home/admin-home.component').then(
-        (m) => m.AdminHomeComponent
-      ),
-  },
-];
+import { AdminRoutingModule } from './admin-routing.module';
+import { AdminHomeComponent } from './admin-home/admin-home.component'; // Solo importar, NO declarar
 
 @NgModule({
-  imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule],
+  imports: [
+    CommonModule,
+    AdminRoutingModule,
+    AdminHomeComponent  // ← Importar el componente standalone
+  ]
 })
-export class AdminModule {}
+export class AdminModule { }

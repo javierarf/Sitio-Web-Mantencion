@@ -1,13 +1,18 @@
 import { Component, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet],
-  template: `<router-outlet></router-outlet>`,
-  styleUrl: './app.css'
+  imports: [RouterOutlet, CommonModule],
+  template: `
+    <main>
+      <router-outlet></router-outlet>
+    </main>
+  `,
+  styleUrls: ['./app.css']
 })
 export class App {
-  protected readonly title = signal('frontend');
+  title = signal('Sistema de Mantención');
 }

@@ -21,6 +21,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'rest_framework',
+    'rest_framework_simplejwt',
     'rest_framework.authtoken',
     'djoser',
 
@@ -85,6 +86,11 @@ REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': (
         'rest_framework.permissions.IsAuthenticated',
     ),
+    'DEFAULT_FILTER_BACKENDS': [
+        'django_filters.rest_framework.DjangoFilterBackend',
+        'rest_framework.filters.SearchFilter',
+        'rest_framework.filters.OrderingFilter'
+    ]
 }
 
 # Configuración de JWT para Djoser
@@ -97,10 +103,12 @@ SIMPLE_JWT = {
 
 # Configuración de Djoser para usar JWT
 DJOSER = {
-    'LOGIN_FIELD': 'username',
+    'LOGIN_FIELD': 'email',
     'USER_CREATE_PASSWORD_RETYPE': True,
     'SERIALIZERS': {
-         'token': 'api.serializers.CustomTokenObtainPairSerializer',},
+        'user_create': 'api.serializers.UsuarioCreateSerializer',
+        'user': 'api.serializers.UsuarioSerializer',
+        'current_user': 'api.serializers.UsuarioSerializer',},
     'TOKEN_MODEL': None,
 }
 

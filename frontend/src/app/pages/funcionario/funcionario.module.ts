@@ -1,19 +1,15 @@
-// src/app/pages/funcionario/funcionario.module.ts
+// pages/funcionario/funcionario.module.ts
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { CommonModule } from '@angular/common';
 
-const routes: Routes = [
-  {
-    path: '',
-    loadComponent: () =>
-      import('./funcionario-home/funcionario-home.component').then(
-        (m) => m.FuncionarioHomeComponent
-      ),
-  },
-];
+import { FuncionarioRoutingModule } from './funcionario-routing.module';
+import { FuncionarioHomeComponent } from './funcionario-home/funcionario-home.component';
 
 @NgModule({
-  imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule],
+  imports: [
+    CommonModule,
+    FuncionarioRoutingModule,
+    FuncionarioHomeComponent  // ← Importar, NO declarar
+  ]
 })
-export class FuncionarioModule {}
+export class FuncionarioModule { }
