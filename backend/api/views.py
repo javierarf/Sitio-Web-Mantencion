@@ -10,6 +10,8 @@ from .serializers import (
     CustomTokenObtainPairSerializer
 )
 from rest_framework_simplejwt.views import TokenObtainPairView
+from rest_framework.parsers import MultiPartParser, FormParser 
+
 
 class CustomTokenObtainPairView(TokenObtainPairView):
     serializer_class = CustomTokenObtainPairSerializer
@@ -30,9 +32,15 @@ class SolicitudViewSet(viewsets.ModelViewSet):
     queryset = Solicitud.objects.all().order_by('-fecha_creacion')
     serializer_class = SolicitudSerializer
     permission_classes = [permissions.IsAuthenticated]
+    parser_classes = [MultiPartParser, FormParser]  
     filter_backends = [DjangoFilterBackend]
     filterset_fields = ['prioridad', 'completada', 'asignada_a']
 
+    def get_serializer_context(self):
+        context = super().get_serializer_context()
+        context['request'] = self.request
+        return context
+    
     def perform_create(self, serializer):
         serializer.save(creada_por=self.request.user)
 
@@ -40,3 +48,4 @@ class SolicitudViewSet(viewsets.ModelViewSet):
     def estadisticas(self, request):
         # Implementa tus estadísticas aquí
         return Response({})
+    

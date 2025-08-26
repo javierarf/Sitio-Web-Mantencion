@@ -9,8 +9,11 @@ import { AuthService } from '../../../auth/auth.service';
 
 interface UsuarioMinimal {
   id: number;
-  username: string;
-  rol?: string;
+  email: string;
+  first_name: string; // ← AÑADE
+  last_name: string;  // ← AÑADE
+  rol: string;        // ← AÑADE
+  username?: string;
 }
 
 @Component({
@@ -23,6 +26,7 @@ interface UsuarioMinimal {
 export class AdminHomeComponent implements OnInit {
   solicitudes: Solicitud[] = [];
   usuarios: UsuarioMinimal[] = [];
+  imagenAmpliada: string | null = null;
 
   constructor(
     private solicitudSvc: SolicitudService,
@@ -71,5 +75,13 @@ export class AdminHomeComponent implements OnInit {
       next: () => this.cargarSolicitudes(),
       error: (e) => console.error('Error al actualizar completada', e),
     });
+  }
+
+  abrirImagen(url: string) {
+    this.imagenAmpliada = url;
+  }
+
+  cerrarImagen() {
+    this.imagenAmpliada = null;
   }
 }

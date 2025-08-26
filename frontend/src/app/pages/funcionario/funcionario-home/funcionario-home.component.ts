@@ -18,6 +18,8 @@ export class FuncionarioHomeComponent implements OnInit {
   solicitudes: Solicitud[] = [];
   imagenes: File[] = [];
   imagenesPreview: string[] = [];
+  imagenAmpliada: string | null = null;
+
 
   constructor(private solicitudSvc: SolicitudService) {}
 
@@ -52,8 +54,8 @@ export class FuncionarioHomeComponent implements OnInit {
     formData.append('resumen', this.resumen);
     formData.append('descripcion', this.descripcion);
 
-    for (let img of this.imagenes) {
-      formData.append('imagenes', img); // ajustá el nombre de campo según backend
+    if (this.imagenes.length > 0) {
+    formData.append('imagen', this.imagenes[0]); // Solo la primera imagen
     }
 
     this.solicitudSvc.crear(formData).subscribe({
@@ -66,5 +68,13 @@ export class FuncionarioHomeComponent implements OnInit {
       },
       error: (e) => console.error('Error al crear solicitud', e),
     });
+  }
+
+  abrirImagen(url: string) {
+    this.imagenAmpliada = url;
+  }
+
+  cerrarImagen() {
+    this.imagenAmpliada = null;
   }
 }

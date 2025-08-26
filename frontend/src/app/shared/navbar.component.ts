@@ -14,7 +14,7 @@ import { CommonModule } from '@angular/common';
         <!-- Izquierda: Brand -->
         <div class="brand-section">
           <div class="brand">
-            <span class="logo">🏢</span>
+            <span class="logo"><img src="assets/logo-sna-educa.jpg"></span>
             Gestión Mantención
           </div>
         </div>
@@ -102,14 +102,19 @@ import { CommonModule } from '@angular/common';
       gap: 12px;
       font-size: 1.5rem;
       font-weight: bold;
-      color: #ffffff;
-      text-shadow: 0 1px 2px rgba(0,0,0,0.2);
+      color: #9fce4dff;
       white-space: nowrap;
     }
 
     .logo {
       font-size: 1.8rem;
     }
+    
+    .logo img {
+  height: 50px; /* o el tamaño que necesites */
+  width: auto;
+  display: block;
+}
 
     .nav-buttons {
       display: flex;

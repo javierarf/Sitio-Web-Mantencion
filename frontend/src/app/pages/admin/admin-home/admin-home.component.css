@@ -60,3 +60,36 @@ button {
 button:hover {
   background-color: #a7c870;
 }
+
+.imagen-thumbnail {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.imagen-thumbnail:hover {
+  transform: scale(1.1);
+}
+
+/* Modal para imagen ampliada */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content img {
+  max-width: 90%;
+  max-height: 90%;
+  border-radius: 8px;
+}

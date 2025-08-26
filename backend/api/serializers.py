@@ -49,10 +49,17 @@ class SolicitudSerializer(serializers.ModelSerializer):
     creada_por = UsuarioSerializer(read_only=True)
     asignada_a = UsuarioSerializer(read_only=True)
 
+    imagen_url = serializers.SerializerMethodField()
     def validate_prioridad(self, value):
         if value not in ['alta', 'media', 'baja']:
             raise serializers.ValidationError("Prioridad debe ser alta, media o baja")
         return value
+
+    def get_imagen_url(self, obj):
+        if obj.imagen:
+            return self.context['request'].build_absolute_uri(obj.imagen.url)
+        return None
+
 
     class Meta:
         model = Solicitud
@@ -61,3 +68,9 @@ class SolicitudSerializer(serializers.ModelSerializer):
             'prioridad', 'completada', 'creada_por', 
             'asignada_a', 'fecha_creacion'
         ]
+        read_only_fields = ['creada_por', 'asignada_a', 'fecha_creacion']
+        
+    class Meta:
+        model = Solicitud
+        fields = '__all__'
+        read_only_fields = ['creada_por', 'asignada_a', 'fecha_creacion']

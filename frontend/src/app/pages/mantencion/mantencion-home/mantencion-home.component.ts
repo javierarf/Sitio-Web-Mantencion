@@ -13,6 +13,7 @@ import { NavbarComponent } from '../../../shared/navbar.component';
 })
 export class MantencionHomeComponent implements OnInit {
   tareas: Solicitud[] = [];
+  imagenAmpliada: string | null = null;
 
   constructor(private solicitudSvc: SolicitudService) {}
 
@@ -38,5 +39,13 @@ export class MantencionHomeComponent implements OnInit {
         next: () => this.cargar(),
         error: (e) => console.error('Error actualizar', e),
       });
+  }
+
+  abrirImagen(url: string) {
+    this.imagenAmpliada = url;
+  }
+
+  cerrarImagen() {
+    this.imagenAmpliada = null;
   }
 }

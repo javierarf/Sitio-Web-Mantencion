@@ -7,9 +7,11 @@ export interface Solicitud {
   id?: number;
   resumen: string;
   descripcion: string;
+  imagen?: string;
+  imagen_url?: string; // ← AÑADE ESTA PROPIEDAD
   prioridad?: 'alta' | 'media' | 'baja';
   completada?: boolean;
-  creada_por?: number;
+  creada_por?: number | { id: number; email: string }; // ← PUEDE SER number O objeto
   asignada_a?: number | null;
   fecha_creacion?: string;
 }
@@ -27,7 +29,12 @@ export class SolicitudService {
   }
 
   crear(payload: FormData): Observable<Solicitud> {
-  return this.http.post<Solicitud>(this.base, payload);
+  return this.http.post<Solicitud>(this.base, payload, {
+    headers: { 
+      // NO incluir 'Content-Type': 'multipart/form-data'
+      // Angular lo setea automáticamente con el boundary correcto
+    }
+  });
 }
 
   actualizar(id: number, payload: Partial<Solicitud>): Observable<Solicitud> {

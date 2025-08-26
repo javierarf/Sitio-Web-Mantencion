@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
-from .models import Usuario
+from .models import Solicitud, Usuario
 
 class UsuarioAdmin(UserAdmin):
     fieldsets = (
@@ -20,3 +20,4 @@ class UsuarioAdmin(UserAdmin):
     ordering = ('email',)
 
 admin.site.register(Usuario, UsuarioAdmin)
+admin.site.register(Solicitud) 

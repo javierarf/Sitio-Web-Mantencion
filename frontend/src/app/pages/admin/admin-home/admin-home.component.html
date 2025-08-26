@@ -7,14 +7,36 @@
     Cargando solicitudes...
   </div>
 
-  <div *ngFor="let s of solicitudes" class="card">
-    <div class="card-info">
-      <strong>{{ s.resumen }}</strong> — {{ s.descripcion }}
-      <div>Creada: {{ s.fecha_creacion | date:'short' }}</div>
+  <div *ngFor="let s of solicitudes" class="admin-card">
+    <div class="card-content">
+      <div class="card-info">
+        <strong>{{ s.resumen }}</strong>
+        <p>{{ s.descripcion }}</p>
+        <div class="card-meta">
+          <span>Creada: {{ s.fecha_creacion | date:'short' }}</span>
+          <span *ngIf="s.creada_por && typeof s.creada_por === 'object'">
+            Por: {{ s.creada_por.email }}
+          </span>
+          <span *ngIf="s.creada_por && typeof s.creada_por === 'number'">
+            Por: ID {{ s.creada_por }}
+          </span>
+        </div>
+      </div>
+      
+      <div class="card-imagen" *ngIf="s.imagen_url">
+        <img 
+          [src]="s.imagen_url" 
+          alt="Imagen solicitud" 
+          (click)="abrirImagen(s.imagen_url)"
+          class="imagen-thumbnail"
+        />
+        <div class="imagen-tooltip">Click para ampliar</div>
+      </div>
     </div>
+
     <div class="card-actions">
-      <div>
-        Prioridad:
+      <div class="action-group">
+        <label>Prioridad:</label>
         <select [(ngModel)]="s.prioridad" (change)="cambiarPrioridad(s)">
           <option value="alta">Alta</option>
           <option value="media">Media</option>
@@ -22,22 +44,30 @@
         </select>
       </div>
 
-      <div>
-        Asignada a:
+      <div class="action-group">
+        <label>Asignada a:</label>
         <select [(ngModel)]="s.asignada_a" (change)="asignar(s)">
           <option [ngValue]="null">— sin asignar —</option>
-          <option *ngFor="let u of usuarios" [value]="u.id">
-            {{ u.username }}
+          <option *ngFor="let u of usuarios" [ngValue]="u.id">
+            {{ u.first_name }} {{ u.last_name }} ({{ u.email }})
           </option>
         </select>
       </div>
 
-      <div>
-        <label>
+      <div class="action-group">
+        <label class="checkbox-label">
           <input type="checkbox" [checked]="s.completada" (change)="toggleCompleta(s)" />
           Completada
         </label>
       </div>
     </div>
+  </div>
+</div>
+
+<!-- Modal para imagen ampliada -->
+<div *ngIf="imagenAmpliada" class="modal" (click)="cerrarImagen()">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <span class="close-btn" (click)="cerrarImagen()">&times;</span>
+    <img [src]="imagenAmpliada" alt="Imagen ampliada" />
   </div>
 </div>

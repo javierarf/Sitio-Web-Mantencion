@@ -3,7 +3,8 @@
 <div class="funcionario-container">
   <h2>Crear nueva solicitud</h2>
 
-  <form (ngSubmit)="crear()" class="solicitud-form">
+  <!-- FORMULARIO -->
+  <form (ngSubmit)="crear()" class="solicitud-form vertical-form">
     <input
       [(ngModel)]="resumen"
       name="resumen"
@@ -29,18 +30,41 @@
       class="form-control"
     />
 
-    <div *ngIf="imagenesPreview.length > 0" class="preview-container">
+    <div *ngIf="imagenesPreview.length > 0" class="preview-container vertical-preview">
       <img *ngFor="let img of imagenesPreview" [src]="img" alt="Vista previa" />
     </div>
 
     <button type="submit" class="btn-crear">Crear solicitud</button>
   </form>
 
+  <!-- LISTADO -->
   <h3 class="mis-solicitudes">Mis solicitudes</h3>
-  <ul class="lista-solicitudes">
-    <li *ngFor="let s of solicitudes">
-      <strong>{{ s.resumen }}</strong> — {{ s.descripcion }} — 
-      Completada: {{ s.completada ? 'Sí' : 'No' }}
-    </li>
-  </ul>
+  
+  <div *ngIf="solicitudes.length === 0" class="loading">
+    No hay solicitudes creadas.
+  </div>
+
+  <div class="solicitudes-list">
+    <div *ngFor="let s of solicitudes" class="solicitud-card vertical-card">
+      <div class="solicitud-info">
+        <strong>{{ s.resumen }}</strong>
+        <p>{{ s.descripcion }}</p>
+        <div class="solicitud-meta">
+          <span class="badge priority-{{ s.prioridad }}">{{ s.prioridad }}</span>
+          <span>Completada: {{ s.completada ? 'Sí' : 'No' }}</span>
+          <span>{{ s.fecha_creacion | date:'short' }}</span>
+        </div>
+      </div>
+      
+      <div class="solicitud-imagen" *ngIf="s.imagen_url">
+        <img 
+          [src]="s.imagen_url" 
+          alt="Imagen solicitud" 
+          (click)="abrirImagen(s.imagen_url)"
+          class="imagen-thumbnail"
+        >
+        <div class="imagen-tooltip">Click para ampliar</div>
+      </div>
+    </div>
+  </div>
 </div>
